@@ -1,0 +1,58 @@
+services:
+
+  # Контейнер 1 Spring Boot приложение
+  app:
+    build:
+      context: ./app          # Docker берёт файлы из папки ./app
+      dockerfile: Dockerfile  # использует ./app/Dockerfile
+    container_name: todo-app
+    ports:
+      - "8080:8080"           # host_port:container_port
+      # Только app доступна БД закрыта
+    environment:
+      # Значения подставляются из .env файла
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy  # ждём пока БД пройдёт healthcheck
+    networks:
+      - todo-network
+    restart: unless-stopped   # перезапускать при падении
+
+  # Контейнер 2 PostgreSQL база данных
+  db:
+    build:
+      context: ./db           # собираем образ с init.sql
+      dockerfile: Dockerfile
+    container_name: todo-db
+    # ports: - отсутствует
+    # БД доступна только внутри Docker-сети
+    environment:
+      POSTGRES_DB:       ${DB_NAME}
+      POSTGRES_USER:     ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      # данные переживают пересоздание контейнера.
+      # Без volume при docker compose down данные БД удаляются
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      # Проверяем что PostgreSQL готов принимать соединения
+      # app не стартует пока healthcheck не вернёт success
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+# Сеть
+networks:
+  todo-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  db-data:

@@ -1,0 +1,15 @@
+package com.example.todo.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+
+// Выбрасывается когда задача не найдена по id
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class TaskNotFoundException extends RuntimeException {
+
+    public TaskNotFoundException(Long id) {
+        super("Задача с id=" + id + " не найдена");
+    }
+}
