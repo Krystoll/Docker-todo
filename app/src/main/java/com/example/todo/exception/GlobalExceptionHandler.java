@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("status", 400);
+        body.put("status", HttpStatus.BAD_REQUEST.value());
         body.put("error", "Ошибка валидации");
         body.put("fields", fieldErrors);
         return ResponseEntity.badRequest().body(body);

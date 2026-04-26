@@ -74,8 +74,8 @@ public class TaskService {
     private void applyRequest(Task task, TaskRequest req) {
         task.setTitle(req.getTitle());
         task.setDescription(req.getDescription());
-        if (req.getPriority() != null) task.setPriority(req.getPriority());
-        if (req.getDueDate() != null)  task.setDueDate(req.getDueDate());
-        if (req.getStatus() != null)   task.setStatus(req.getStatus());
+        if (req.getPriority() != null) {task.setPriority(req.getPriority());}
+        if (req.getDueDate() != null)  {task.setDueDate(req.getDueDate());}
+        if (req.getStatus() != null)   {task.setStatus(req.getStatus());}
     }
 }
