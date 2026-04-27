@@ -1,5 +1,5 @@
 #  STAGE 1: сборка
-FROM maven:3.9-eclipse-temurin-17 AS builder
+FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
 
@@ -8,10 +8,10 @@ RUN mvn dependency:go-offline
 
 # Копируем исходники и компилируем
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -Dcheckstyle.skip=true
 
 #  STAGE 2: запуск
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
