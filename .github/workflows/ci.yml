@@ -30,6 +30,10 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
+      - name: Make mvnw executable
+        working-directory: ./app
+        run: chmod +x ./mvnw
+
       - name: Build without tests
         working-directory: ./app
         run: ./mvnw package -DskipTests -B
