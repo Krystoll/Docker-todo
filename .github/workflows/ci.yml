@@ -30,13 +30,9 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
 
-      - name: Make mvnw executable
-        working-directory: ./app
-        run: chmod +x ./mvnw
-
       - name: Build without tests
         working-directory: ./app
-        run: ./mvnw package -DskipTests -B
+        run: mvn package -DskipTests -B
 
   # JOB 2 — LINT
   # Запускает Checkstyle. Падает при нарушении правил.
@@ -63,7 +59,7 @@ jobs:
 
       - name: Run Checkstyle
         working-directory: ./app
-        run: ./mvnw checkstyle:check -B
+        run: mvn checkstyle:check -B
 
   # JOB 3 — TEST + COVERAGE
   # Запускает тесты и проверяет coverage ≥ 50%.
@@ -91,7 +87,7 @@ jobs:
 
       - name: Run tests and check coverage
         working-directory: ./app
-        run: ./mvnw verify -B
+        run: mvn verify -B
         # verify = compile + test + jacoco:report + jacoco:check
         # Упадёт если coverage < 50% (настроено в pom.xml)
 
