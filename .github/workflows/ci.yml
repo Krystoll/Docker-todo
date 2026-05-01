@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
 
@@ -32,7 +32,7 @@ jobs:
 
       - name: Build without tests
         working-directory: ./app
-        run: ./mvnw package -DskipTests -B
+        run: mvn package -DskipTests -B
 
   # JOB 2 — LINT
   # Запускает Checkstyle. Падает при нарушении правил.
@@ -59,7 +59,7 @@ jobs:
 
       - name: Run Checkstyle
         working-directory: ./app
-        run: ./mvnw checkstyle:check -B
+        run: mvn checkstyle:check -B
 
   # JOB 3 — TEST + COVERAGE
   # Запускает тесты и проверяет coverage ≥ 50%.
@@ -87,7 +87,7 @@ jobs:
 
       - name: Run tests and check coverage
         working-directory: ./app
-        run: ./mvnw verify -B
+        run: mvn verify -B
         # verify = compile + test + jacoco:report + jacoco:check
         # Упадёт если coverage < 50% (настроено в pom.xml)
 
@@ -129,7 +129,7 @@ jobs:
     name: Docker Push
     runs-on: ubuntu-latest
     needs: [ docker_build ]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
