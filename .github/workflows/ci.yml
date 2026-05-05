@@ -117,8 +117,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ secrets.KRYSTOLL }}/docker-todo:${{ env.SHA }} \
-            -t ${{ secrets.KRYSTOLL }}/docker-todo:latest \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/docker-todo:${{ env.SHA }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/docker-todo:latest \
             ./app
 
   # JOB 5 — DOCKER PUSH
@@ -140,7 +140,7 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.KRYSTOLL }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push image
@@ -149,5 +149,5 @@ jobs:
           context: ./app
           push: true
           tags: |
-            ${{ secrets.KRYSTOLL }}/docker-todo:${{ env.SHA }}
-            ${{ secrets.KRYSTOLL }}/docker-todo:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/docker-todo:${{ env.SHA }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/docker-todo:latest
