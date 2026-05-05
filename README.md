@@ -105,7 +105,7 @@ curl -X DELETE http://localhost:8080/api/tasks/1
 
 **Клонируйте репозиторий:**
 ```
-git clone https://github.com/ваш-аккаунт/todo-docker.git
+git clone https://github.com/krystoll/todo-docker.git
 cd todo-docker
 ```
 
