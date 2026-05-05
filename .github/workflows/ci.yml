@@ -117,8 +117,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ secrets.KRYSTOLL }}/todo-app:${{ env.SHA }} \
-            -t ${{ secrets.KRYSTOLL }}/todo-app:latest \
+            -t ${{ secrets.KRYSTOLL }}/Docker-todo:${{ env.SHA }} \
+            -t ${{ secrets.KRYSTOLL }}/Docker-todo:latest \
             ./app
 
   # JOB 5 — DOCKER PUSH
@@ -149,5 +149,5 @@ jobs:
           context: ./app
           push: true
           tags: |
-            ${{ secrets.KRYSTOLL }}/todo-app:${{ env.SHA }}
-            ${{ secrets.KRYSTOLL }}/todo-app:latest
+            ${{ secrets.KRYSTOLL }}/Docker-todo:${{ env.SHA }}
+            ${{ secrets.KRYSTOLL }}/Docker-todo:latest
