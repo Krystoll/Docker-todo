@@ -24,10 +24,9 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.doNothing;
 
-/**
- * @ExtendWith(MockitoExtension.class) — инициализирует @Mock и @InjectMocks.
- * БД не нужна — TaskRepository заменён моком Mockito.
- */
+
+ // @ExtendWith(MockitoExtension.class) — инициализирует @Mock и @InjectMocks.
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("TaskService unit tests")
 class TaskServiceTest {
