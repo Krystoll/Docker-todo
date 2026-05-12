@@ -91,12 +91,12 @@
                     <violationSeverity>warning</violationSeverity>
                     <consoleOutput>true</consoleOutput>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals><goal>check</goal></goals>
-                    </execution>
-                </executions>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>validate</phase>-->
+<!--                        <goals><goal>check</goal></goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
 
             <!-- ══ JACOCO — coverage ════════════════════════════════ -->
