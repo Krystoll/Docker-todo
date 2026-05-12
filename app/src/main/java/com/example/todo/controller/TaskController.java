@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/tasks")
